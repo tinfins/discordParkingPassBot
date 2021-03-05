@@ -1,15 +1,13 @@
-import discord
-from discord.ext import commands
-from dotenv import load_dotenv
-import pathlib
+import logging.config
 import os
 from os import listdir
-from os.path import isfile, join, dirname
-from os import environ
-import sys
+from os.path import isfile, join
 import traceback
 import datetime as dt
 import pytz
+import discord
+from discord.ext import commands
+from dotenv import load_dotenv
 
 #This is a multi file example showcasing many features of the command extension and the use of cogs.
 #These are examples only and are not intended to be used as a fully functioning bot. Rather they should give you a basic
@@ -25,7 +23,10 @@ import pytz
 
 
 load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
+TOKEN = os.getenv('PARKINGPASSBOT_TOKEN ')
+
+logging.config.fileConfig(fname='utils/config.ini', disable_existing_loggers=False)
+logger = logging.getLogger(__name__)
 
 def get_prefix(bot, message):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
@@ -58,25 +59,16 @@ if __name__ == '__main__':
     for extension in [f.replace('.py', '') for f in listdir(cogs_dir) if isfile(join(cogs_dir, f))]:
         try:
             bot.load_extension(cogs_dir + "." + extension)
-            print(f'Loaded {extension} successfully')
+            logger.info(f'Loaded {extension} successfully')
         except (discord.ClientException, ModuleNotFoundError):
-            print(f'Failed to load extension {extension}.')
+            logger.error(f'Failed to load extension {extension}.')
             traceback.print_exc()
 
 @bot.event
 async def on_ready():
     """http://discordpy.readthedocs.io/en/rewrite/api.html#discord.on_ready"""
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="/help, #help, and !help"))
-    tz = pytz.timezone('America/New_York')
-    ts = dt.datetime.now(tz).strftime('%d-%b-%m %H:%M:%S')
-    print(f'\n{ts} EST')
-    print('-'*15)
-    print(f'Successfully logged in and booted...!')
-    print(f'Logged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}')
-    print('-'*15)
+    logger.info('Successfully logged in and booted...!')
+    logger.info(f'Logged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}')
 
-# Start the Server
-#keep_alive.keep_alive()
-
-#def run():
 bot.run(TOKEN)
