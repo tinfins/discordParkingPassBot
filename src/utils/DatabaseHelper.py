@@ -123,9 +123,11 @@ class DatabaseHelper:
         db_path = f'src/db/{guild.id}.db'
         sqliteH = SqliteHandler()
         db_exists = sqliteH.check_database_exists(db_path)
+        print(f'db exists {db_exists}')
         if db_exists is False:
             sqliteH.create_database(db_path)
         table_exists = self.table_exists_sql(self.connection(db_path))
+        print(f'table exists {table_exists}')
         if table_exists is False:
             self.create_table_sql(self.connection(db_path))
     
