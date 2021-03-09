@@ -111,7 +111,9 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         user_name = author.name
         print(user_name)
         # Guild id from message
+        print('getting guild id')
         guild_id = ctx.guild.id
+        print(guild_id)
         self.dbH.setup(guild_id)
         print('guild id')
         self.db_path = f'src/db/{guild_id}.db'
