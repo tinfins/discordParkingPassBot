@@ -39,7 +39,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     @commands.command(name='out')
     async def pass_out(self, ctx, pass_num):
         '''
-        /pass out [pass #] - Check out parking pass
+        /pass out [pass#] - Check out pass
         '''
         ts = dt.datetime.now(self.tz).strftime('%d-%b-%y %H:%M:%S')
         # User who sent message
@@ -71,7 +71,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     @commands.command(name='in')
     async def pass_in(self, ctx, pass_num):
         '''
-        /pass in [pass #] - Check in parking pass
+        /pass in [pass#] - Check in pass
         '''
         # User who sent message
         author = ctx.author
@@ -104,7 +104,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     @commands.has_any_role("supervisors", "admin")
     async def pass_add(self, ctx, pass_num):
         '''
-        /pass add [pass #] - Add pass to database
+        /pass add [pass#] - Add pass
         '''
         # User who sent message
         author = ctx.author
@@ -139,7 +139,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     @commands.has_any_role("supervisors", "admin")
     async def pass_del(self, ctx, pass_num):
         '''
-        /pass del [pass #] - Delete pass to database
+        /pass del [pass#] - Delete pass
         '''
         # User who sent message
         author = ctx.author
@@ -169,7 +169,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     @commands.has_any_role("supervisors", "admin")
     async def status(self, ctx, pass_num):
         '''
-        /pass status [pass #] - Check status of pass
+        /pass status [pass#] - Pass status
         '''
         # User who sent message
         author = ctx.author
@@ -206,7 +206,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     @commands.has_any_role("supervisors", "admin")
     async def report(self, ctx):
         '''
-        /pass report - Show status of passes
+        /pass report - Passes report
         '''
         # User who sent message
         author = ctx.author

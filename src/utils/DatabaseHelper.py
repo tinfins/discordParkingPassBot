@@ -111,8 +111,9 @@ class DatabaseHelper:
         rows = cur.fetchall()
         passes = []
         for row in rows:
-            d = dict(zip(row.keys(), row))
-            passes.append(d)
+            if row['out'] == 1:
+                d = dict(zip(row.keys(), row))
+                passes.append(d)
         self.sqliteH.close_connection(conn, cur)
         return passes
     
