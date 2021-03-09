@@ -27,10 +27,12 @@ class SqliteHandler:
         self.db_file = f"file:{db_id}?mode=rw"
         try:
             conn = sqlite3.connect(self.db_file, uri=True)
+            print(f'Database {db_id} exists!')
             self.logger.info('Database %s exists!', db_id)
             conn.close()
             return True
         except Error as ex:
+            print(ex)
             self.logger.error(ex)
             return False
 
@@ -44,11 +46,14 @@ class SqliteHandler:
         self.db_file = f"file:{db_id}?mode=rwc"
         try:
             conn = sqlite3.connect(self.db_file, uri=True)
+            print(f'SQLite3 version: {sqlite3.version}')
+            print(f'Database created at {db_id}')
             self.logger.info('SQLite3 version: %s', sqlite3.version)
             self.logger.info('Database created at %s', db_id)
             self.close_connection(conn)
             return True
         except Error as ex:
+            print(ex)
             self.logger.error(ex)
             return False
     
@@ -62,6 +67,7 @@ class SqliteHandler:
             conn = sqlite3.connect(db_path, uri=True)
             return conn
         except Error as ex:
+            print(ex)
             self.logger.error(ex)
             return None
     
@@ -77,6 +83,7 @@ class SqliteHandler:
             conn.close()
             return True
         except Error as ex:
+            print(ex)
             self.logger.error(ex)
             return False
     
@@ -97,6 +104,7 @@ class SqliteHandler:
                 cur.execute(sql)
             return cur
         except Error as ex:
+            print(ex)
             self.logger.error(ex)
             return None
     
@@ -118,5 +126,6 @@ class SqliteHandler:
                 conn.commit()
             return True
         except Error as ex:
+            print(ex)
             self.logger.error(ex)
             return False

@@ -55,7 +55,9 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             out = self.dbH.check_out_flag(self.dbH.connection(self.db_path), pass_num)
             if out is False:
                 self.dbH.update_pass(self.dbH.connection(self.db_path), pass_num, user_name, ts, 1)
+                print(f'Pass {pass_num} has been checked out by {user_name}')
                 self.logger.info('Pass %s has been checked out by %s', pass_num, user_name)
+                return await ctx.send(f'Pass {pass_num} has been checked out by {user_name}')
             elif out is True:
                 return await ctx.send(f'{pass_num} is already checked out. Mark this pass as returned or check out a different parking pass...')
             elif out is None:
@@ -84,7 +86,9 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             out = self.dbH.check_out_flag(self.dbH.connection(self.db_path), pass_num)
             if out is True:
                 self.dbH.update_pass(self.dbH.connection(self.db_path), pass_num, 'none', 'none', 0)
+                print(f'Pass {pass_num} has been checked in by {user_name}')
                 self.logger.info('Pass %s has been checked in by %s', pass_num, user_name)
+                return await ctx.send(f'Pass {pass_num} has been checked in by {user_name}')
             elif out is False:
                 return await ctx.send(f'{pass_num} has already been turned in...')
             elif out is None:
@@ -116,6 +120,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             if out is None:
                 add_pass = self.dbH.add_pass(self.dbH.connection(self.db_path), pass_num, 0)
                 if add_pass is True:
+                    print(f'{pass_num} added to {self.db_path} by {user_name}')
                     self.logger.info('%s added to %s by %s', pass_num, self.db_path, user_name)
                     return await ctx.send(f'{pass_num} has been added to your pool...')
                 else:
@@ -147,6 +152,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         if pass_validate(pass_num):
             del_pass = self.dbH.del_pass(self.dbH.connection(self.db_path), pass_num)
             if del_pass:
+                print(f'{pass_num} deleted from {self.db_path} by {user_name}')
                 self.logger.info('%s deleted from %s by %s', pass_num, self.db_path, user_name)
                 return await ctx.send(f'{pass_num} has been deleted from your pool...')
             else:

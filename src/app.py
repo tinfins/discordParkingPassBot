@@ -40,7 +40,7 @@ def get_prefix(bot, message):
 # Below cogs represents our folder our cogs are in. Following is the file name. So 'meme.py' in cogs, would be cogs.meme
 # Think of it like a dot path import
 # This is the directory all are located in.
-cogs_dir = "src/cogs"
+cogs_dir = "cogs"
 
 intents = discord.Intents(members=True,messages=True,guilds=True)
 
@@ -51,8 +51,12 @@ if __name__ == '__main__':
     for extension in [f.replace('.py', '') for f in listdir(cogs_dir) if isfile(join(cogs_dir, f))]:
         try:
             bot.load_extension(cogs_dir + "." + extension)
+            print(f'Loaded {extension} successfully')
             logger.info('Loaded %s successfully', extension)
         except (discord.ClientException, ModuleNotFoundError):
+            print(f'Failed to load extension: {extension}')
+            print(discord.ClientException)
+            print(ModuleNotFoundError)
             logger.error('Failed to load extension: %s', extension)
             traceback.print_exc()
 
@@ -60,6 +64,8 @@ if __name__ == '__main__':
 async def on_ready():
     """http://discordpy.readthedocs.io/en/rewrite/api.html#discord.on_ready"""
     await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="/pass help, #pass help"))
+    print('Successfully logged in and booted...!')
+    print(f'Logged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}')
     logger.info('Successfully logged in and booted...!')
     logger.info('Logged in as: %s - %s\nVersion: %s', bot.user.name, bot.user.id, discord.__version__)
 
@@ -67,11 +73,13 @@ async def on_ready():
 async def on_guild_join(guild):
     dbH = DatabaseHelper('parkingPass')
     dbH.setup(guild.id)
+    print(f'Joined guild: {guild.id}')
     logger.info('Joined guild: %s', guild.id)
 
 @bot.event
 async def on_guild_remove(guild):
     os.remove(f'src/db/{guild.id}.db')
+    print(f'Removed from guild: {guild.id}')
     logger.info('Removed from guild: %s', guild.id)
 
 bot.run(TOKEN)
