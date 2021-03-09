@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 def get_prefix(bot, message):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
     # Notice how you can use spaces in prefixes. Try to keep them simple though.
-    prefixes = ['/pass', '/park', '!pass', '!park']
+    prefixes = ['/pass ', '/park ', '!pass ', '!park ']
     # Check to see if we are outside of a guild. e.g DM's etc.
     if not message.guild:
         # Only allow ? to be used in DMs
