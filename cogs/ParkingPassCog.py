@@ -110,7 +110,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         author = ctx.author
         user_name = author.name
         # Guild id from message
-        guild_id = ctx.message.guild.id
+        guild_id = ctx.guild.id
         self.dbH.setup(guild_id)
         self.db_path = f'src/db/{guild_id}.db'
         # Validate parking pass number
