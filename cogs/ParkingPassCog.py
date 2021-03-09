@@ -17,10 +17,6 @@ http://discordpy.readthedocs.io/en/rewrite/ext/commands/api.html#event-reference
 """
 
 
-def setup(bot):
-    bot.add_cog(ParkingPassCog(bot))
-
-
 class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     '''
     Parking pass manager commands
@@ -245,4 +241,5 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
 
 # The setup function below is necessary. Remember we give bot.add_cog() the name of the class in this case SimpleCog.
 # When we load the cog, we use the name of the file.
-
+def setup(bot):
+    bot.add_cog(ParkingPassCog(bot))
