@@ -121,7 +121,7 @@ class DatabaseHelper:
     
     def setup(self, guild):
         print('start setup')
-        db_path = f'src/db/{guild.id}.db'
+        db_path = f'src/db/{guild}.db'
         sqliteH = SqliteHandler()
         print('check db exists')
         db_exists = sqliteH.check_database_exists(db_path)
