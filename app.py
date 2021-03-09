@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 def get_prefix(bot, message):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
     # Prefix is pass or park. Should eliminate any overlap with any other bots
-    prefixes = ['#pass', '!pass']
+    prefixes = ['pass!', 'pass/']
     # If we are in a guild, we allow for the user to mention us or use any of the prefixes in our list.
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
