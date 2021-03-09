@@ -24,7 +24,7 @@ from utils.DatabaseHelper import DatabaseHelper
 load_dotenv()
 TOKEN = os.getenv('PARKINGPASSBOT_TOKEN')
 
-logging.config.fileConfig(fname='src/utils/config.ini', disable_existing_loggers=False)
+logging.config.fileConfig(fname='utils/config.ini', disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
 def get_prefix(bot, message):
