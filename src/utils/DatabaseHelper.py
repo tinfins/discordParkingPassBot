@@ -1,5 +1,5 @@
 import sqlite3
-from utils.SqliteHandler import SqliteHandler
+from src.utils.SqliteHandler import SqliteHandler
 
 
 class DatabaseHelper:

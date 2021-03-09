@@ -6,7 +6,7 @@ import traceback
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-from utils.DatabaseHelper import DatabaseHelper
+from src.utils.DatabaseHelper import DatabaseHelper
 
 #This is a multi file example showcasing many features of the command extension and the use of cogs.
 #These are examples only and are not intended to be used as a fully functioning bot. Rather they should give you a basic
@@ -24,7 +24,7 @@ from utils.DatabaseHelper import DatabaseHelper
 load_dotenv()
 TOKEN = os.getenv('PARKINGPASSBOT_TOKEN')
 
-logging.config.fileConfig(fname='utils/config.ini', disable_existing_loggers=False)
+logging.config.fileConfig(fname='src/utils/config.ini', disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
 def get_prefix(bot, message):
@@ -40,7 +40,7 @@ def get_prefix(bot, message):
 # Below cogs represents our folder our cogs are in. Following is the file name. So 'meme.py' in cogs, would be cogs.meme
 # Think of it like a dot path import
 # This is the directory all are located in.
-cogs_dir = "cogs"
+cogs_dir = "src/cogs"
 
 intents = discord.Intents(members=True,messages=True,guilds=True)
 
