@@ -29,10 +29,8 @@ logger = logging.getLogger(__name__)
 
 def get_prefix(bot, message):
     """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
-
     # Prefix is pass or park. Should eliminate any overlap with any other bots
     prefixes = ['/pass', '#pass', '/park', '#park']
-
     # If we are in a guild, we allow for the user to mention us or use any of the prefixes in our list.
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
@@ -40,7 +38,7 @@ def get_prefix(bot, message):
 # Below cogs represents our folder our cogs are in. Following is the file name. So 'meme.py' in cogs, would be cogs.meme
 # Think of it like a dot path import
 # This is the directory all are located in.
-cogs_dir = "src/cogs"
+cogs_dir = "cogs"
 
 intents = discord.Intents(members=True,messages=True,guilds=True)
 
