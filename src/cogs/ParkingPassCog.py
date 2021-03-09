@@ -29,6 +29,9 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         self.dbH = DatabaseHelper('parkingPass')
         self.db_path = None
 
+    def setup(bot):
+        bot.add_cog(ParkingPassCog(bot))
+
     def pass_validate(self, pass_num):
         '''
         Checks length of pass_num and verifies all digits
@@ -241,5 +244,4 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
 
 # The setup function below is necessary. Remember we give bot.add_cog() the name of the class in this case SimpleCog.
 # When we load the cog, we use the name of the file.
-def setup(bot):
-    bot.add_cog(ParkingPassCog(bot))
+
