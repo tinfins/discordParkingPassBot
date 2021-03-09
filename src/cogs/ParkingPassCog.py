@@ -17,15 +17,6 @@ http://discordpy.readthedocs.io/en/rewrite/ext/commands/api.html#event-reference
 """
 
 
-def pass_validate(pass_num):
-    '''
-    Checks length of pass_num and verifies all digits
-    :param pass_num: pass_id from discord cmd
-    :return: True if valid, else False
-    '''
-    return bool(str(pass_num).isdigit() and len(str(pass_num)) == 5)
-
-
 class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     '''
     Parking pass manager commands
@@ -37,6 +28,14 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         # Sqlite handler initialization
         self.dbH = DatabaseHelper('parkingPass')
         self.db_path = None
+
+    def pass_validate(self, pass_num):
+        '''
+        Checks length of pass_num and verifies all digits
+        :param pass_num: pass_id from discord cmd
+        :return: True if valid, else False
+        '''
+        return bool(str(pass_num).isdigit() and len(str(pass_num)) == 5)
 
     @commands.command(name='out')
     async def pass_out(self, ctx, pass_num):
@@ -51,7 +50,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         guild_id = ctx.message.guild.id
         self.db_path = f'src/db/{guild_id}.db'
         # Validate parking pass number
-        if pass_validate(pass_num):
+        if self.pass_validate(pass_num):
             out = self.dbH.check_out_flag(self.dbH.connection(self.db_path), pass_num)
             if out is False:
                 self.dbH.update_pass(self.dbH.connection(self.db_path), pass_num, user_name, ts, 1)
@@ -82,7 +81,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         guild_id = ctx.message.guild.id
         self.db_path = f'src/db/{guild_id}.db'
         # Validate parking pass number
-        if pass_validate(pass_num):
+        if self.pass_validate(pass_num):
             out = self.dbH.check_out_flag(self.dbH.connection(self.db_path), pass_num)
             if out is True:
                 self.dbH.update_pass(self.dbH.connection(self.db_path), pass_num, 'none', 'none', 0)
@@ -115,7 +114,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         guild_id = ctx.message.guild.id
         self.db_path = f'src/db/{guild_id}.db'
         # Validate parking pass number
-        if pass_validate(pass_num):
+        if self.pass_validate(pass_num):
             out = self.dbH.check_out_flag(self.dbH.connection(self.db_path), pass_num)
             if out is None:
                 add_pass = self.dbH.add_pass(self.dbH.connection(self.db_path), pass_num, 0)
@@ -149,7 +148,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         guild_id = ctx.message.guild.id
         self.db_path = f'src/db/{guild_id}.db'
         # Validate parking pass number
-        if pass_validate(pass_num):
+        if self.pass_validate(pass_num):
             del_pass = self.dbH.del_pass(self.dbH.connection(self.db_path), pass_num)
             if del_pass:
                 print(f'{pass_num} deleted from {self.db_path} by {user_name}')
@@ -166,7 +165,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         await ctx.send(msg)
     
     @commands.command(name='status')
-    @commands.guild_onky()
+    @commands.guild_only()
     @commands.has_any_role("supervisors", "admin")
     async def status(self, ctx, pass_num):
         '''
@@ -179,7 +178,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         guild_id = ctx.message.guild.id
         self.db_path = f'src/db/{guild_id}.db'
         # Validate parking pass number
-        if pass_validate(pass_num):
+        if self.pass_validate(pass_num):
             status = self.dbH.check_pass(self.dbH.connection(self.db_path), pass_num)
             if status is None:
                 return await ctx.send(f'{pass_num} does not exist')
@@ -240,7 +239,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         await ctx.send(msg)
 
 
-# The setup function below is necesarry. Remember we give bot.add_cog() the name of the class in this case SimpleCog.
+# The setup function below is necessary. Remember we give bot.add_cog() the name of the class in this case SimpleCog.
 # When we load the cog, we use the name of the file.
 def setup(bot):
     bot.add_cog(ParkingPassCog(bot))

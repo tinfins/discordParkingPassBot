@@ -6,7 +6,7 @@ import traceback
 import discord
 from discord.ext import commands
 from dotenv import load_dotenv
-from src.utils.DatabaseHelper import DatabaseHelper
+from utils.DatabaseHelper import DatabaseHelper
 
 #This is a multi file example showcasing many features of the command extension and the use of cogs.
 #These are examples only and are not intended to be used as a fully functioning bot. Rather they should give you a basic
