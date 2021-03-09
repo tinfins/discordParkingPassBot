@@ -242,4 +242,3 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
 # When we load the cog, we use the name of the file.
 def setup(bot):
     bot.add_cog(ParkingPassCog(bot))
-    print('cog loaded')
