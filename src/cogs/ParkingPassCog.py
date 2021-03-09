@@ -3,7 +3,7 @@ import datetime as dt
 import pytz
 import discord
 from discord.ext import commands
-from src.utils.DatabaseHelper import DatabaseHelper
+from utils.DatabaseHelper import DatabaseHelper
 
 
 """A simple cog example with simple commands. Showcased here are some check decorators, and the use of events in cogs.

@@ -1,5 +1,5 @@
 import sqlite3
-from discordParkingPassBot.src.utils.SqliteHandler import SqliteHandler
+from utils.SqliteHandler import SqliteHandler
 
 
 class DatabaseHelper:
