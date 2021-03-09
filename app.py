@@ -69,7 +69,7 @@ async def on_ready():
     print(f'Logged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}')
     logger.info('Successfully logged in and booted...!')
     logger.info('Logged in as: %s - %s\nVersion: %s', bot.user.name, bot.user.id, discord.__version__)
-'''
+
 @bot.event
 async def on_guild_join(guild):
     dbH = DatabaseHelper('parkingPass')
@@ -82,5 +82,5 @@ async def on_guild_remove(guild):
     os.remove(f'src/db/{guild.id}.db')
     print(f'Removed from guild: {guild.id}')
     logger.info('Removed from guild: %s', guild.id)
-'''
+
 bot.run(TOKEN, bot=True, reconnect=True)

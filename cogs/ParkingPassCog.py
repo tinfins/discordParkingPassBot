@@ -51,7 +51,6 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         # Validate parking pass number
         if self.pass_validate(pass_num):
             out = self.dbH.check_out_flag(self.dbH.connection(self.db_path), pass_num)
-            print(out)
             if out is False:
                 self.dbH.update_pass(self.dbH.connection(self.db_path), pass_num, user_name, ts, 1)
                 print(f'Pass {pass_num} has been checked out by {user_name}')
@@ -83,7 +82,6 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         # Validate parking pass number
         if self.pass_validate(pass_num):
             out = self.dbH.check_out_flag(self.dbH.connection(self.db_path), pass_num)
-            print(out)
             if out is True:
                 self.dbH.update_pass(self.dbH.connection(self.db_path), pass_num, 'none', 'none', 0)
                 print(f'Pass {pass_num} has been checked in by {user_name}')
