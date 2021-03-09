@@ -40,7 +40,7 @@ class DatabaseHelper:
         :return:var:True if success, else False
         '''
         sql = f"INSERT INTO {self.table_name} (pass_id, name, date, out) VALUES (?, ?, ?, ?)"
-        task = (pass_num, 'none', 'none', out_bool,)
+        task = (int(pass_num), 'none', 'none', int(out_bool),)
         var = self.sqliteH.execute_sql(conn, sql, task)
         self.sqliteH.close_connection(conn)
         return var
@@ -94,7 +94,7 @@ class DatabaseHelper:
     
     def check_out_flag(self, conn, pass_num):
         sql = f"SELECT out FROM {self.table_name} WHERE pass_id = ?"
-        task = (pass_num,)
+        task = (int(pass_num),)
         cur = self.sqliteH.execute_select(conn, sql, task)
         for row in cur:
             return bool(row == 1)
