@@ -17,6 +17,10 @@ http://discordpy.readthedocs.io/en/rewrite/ext/commands/api.html#event-reference
 """
 
 
+def setup(bot):
+    bot.add_cog(ParkingPassCog(bot))
+
+
 class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     '''
     Parking pass manager commands
@@ -28,9 +32,6 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         # Sqlite handler initialization
         self.dbH = DatabaseHelper('parkingPass')
         self.db_path = None
-
-    def setup(bot):
-        bot.add_cog(ParkingPassCog(bot))
 
     def pass_validate(self, pass_num):
         '''
