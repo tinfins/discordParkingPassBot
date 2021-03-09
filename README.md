@@ -11,7 +11,7 @@ The bot creates a separate SQLite database for each guild to enable faster searc
 | Pass #       | Name | Date | Out          |
 | (user input) |      |      | (user input) |
 
-
+  
 Commands are role limited.
 All users have access to the following commands:
 ```
@@ -26,7 +26,7 @@ Parking Pass Manager:
 Type /pass help command for more info on a command.
 You can also type /pass help category for more info on a category.
 ```  
-
+  
 The roles of supervisors and admin have access to the following commands:
 
 ```
@@ -45,10 +45,10 @@ Parking Pass Manager:
 Type !pass help command for more info on a command.
 You can also type !pass help category for more info on a category.
 ```  
-
+  
 ## For Developers:
-For Developers interested in using our application as a base to building their own app or for learning purposes, please see our [LICENSE](https://github.com/tinfins/discordParkingPassBot/blob/master/LICENSE).
-
+For Developers interested in using our application as a base to building their own app or for learning purposes, please see our [LICENSE](https://github.com/tinfins/discordParkingPassBot/blob/main/LICENSE).
+  
 ## Development Environment Setup
 ### Pre-requisites
 Python 3.7
@@ -58,11 +58,11 @@ Python 3.7
 - discord==1.0.1
   
 (See requirements.txt file for most up to date dependencies)
-
+  
 ### Bot Credentials
 Store your discord bot token in a file titled .env in the top-level project directory
 ex. BOT_TOKEN=[bot token]
-
+  
 ### Environment Setup
 - Install Python 3.7.1 or higher
 - Clone github repository
@@ -80,11 +80,11 @@ ex. BOT_TOKEN=[bot token]
 - Install required dependencies
   - All Platforms: pip3 install -r requirements.txt
   - If updating: pip install -r requirements.txt --upgrade
-
+  
 ### Running
 After inviting the bot to your discord server, run the bot by starting your virtual environment, then typing python3 app.py from the top level directory
-
+  
 For a 24/7 online presence of your bot, installing supervisor (sudo apt install supervisor) is recommended.
-
+  
 ## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/tinfins/discordParkingPassBot/blob/master/LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/tinfins/discordParkingPassBot/blob/main/LICENSE) file for details.
