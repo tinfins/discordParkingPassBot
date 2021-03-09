@@ -97,8 +97,7 @@ class DatabaseHelper:
         task = (int(pass_num),)
         cur = self.sqliteH.execute_select(conn, sql, task)
         for row in cur:
-            print(row[0])
-            return bool(row == 1)
+            return bool(row[0] == 1)
     
     def select_passes(self, conn):
         '''
