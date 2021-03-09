@@ -45,7 +45,7 @@ cogs_dir = "cogs"
 
 intents = discord.Intents(members=True,messages=True,guilds=True)
 
-bot = commands.Bot(command_prefix=get_prefix, description='A parking pass manager. Prefix your commands with /pass or #pass', intents=intents)
+bot = commands.Bot(command_prefix=get_prefix, description='A parking pass manager. Prefix your commands with /pass or !pass', intents=intents)
 
 # Here we load our extensions(cogs) that are located in the cogs directory. Any file in here attempts to load.
 if __name__ == '__main__':
