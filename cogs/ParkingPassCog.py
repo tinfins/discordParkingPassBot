@@ -114,7 +114,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         print('getting guild id')
         guild_id = ctx.guild.id
         print(guild_id)
-        self.dbH.setup(str(guild_id))
+        self.dbH.setup(guild_id)
         print('guild id')
         self.db_path = f'src/db/{guild_id}.db'
         # Validate parking pass number

@@ -120,8 +120,10 @@ class DatabaseHelper:
         return SqliteHandler().create_connection(db_path)
     
     def setup(self, guild):
+        print('start setup')
         db_path = f'src/db/{guild.id}.db'
         sqliteH = SqliteHandler()
+        print('check db exists')
         db_exists = sqliteH.check_database_exists(db_path)
         print(f'db exists {db_exists}')
         if db_exists is False:
