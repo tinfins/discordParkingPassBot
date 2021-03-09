@@ -115,9 +115,13 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         self.db_path = f'src/db/{guild_id}.db'
         # Validate parking pass number
         if self.pass_validate(pass_num):
+            print('checking out')
             out = self.dbH.check_out_flag(self.dbH.connection(self.db_path), pass_num)
+            print('done out')
             if out is None:
+                print('start add_pass')
                 add_pass = self.dbH.add_pass(self.dbH.connection(self.db_path), pass_num, 0)
+                print('done add_pass')
                 if add_pass is True:
                     print(f'{pass_num} added to {self.db_path} by {user_name}')
                     self.logger.info('%s added to %s by %s', pass_num, self.db_path, user_name)
