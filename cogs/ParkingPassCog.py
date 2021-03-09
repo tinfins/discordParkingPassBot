@@ -184,7 +184,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         # Validate parking pass number
         if self.pass_validate(pass_num):
             status = self.dbH.check_pass(self.dbH.connection(self.db_path), pass_num)
-            if status is None:
+            if not status or status is None:
                 return await ctx.send(f'{pass_num} does not exist')
             else:
                 p = []
@@ -196,7 +196,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
                         else:
                             v = 'Issued'
                     p.append(f'{key}: {v}')
-                return await ctx.send("'\n'.join(p)")
+                return await ctx.send('\n'.join(p))
         else:
             return await ctx.send('Not a valid parking pass number. Please try again...')
     
@@ -219,8 +219,8 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         guild_id = ctx.message.guild.id
         self.db_path = f'src/db/{guild_id}.db'
         status = self.dbH.select_passes(self.dbH.connection(self.db_path))
-        if status is None:
-            return await ctx.send(f'{self.db_path} does not exist')
+        if not status or status is None:
+            return await ctx.send(f'No parking passes are registered...')
         else:
             p = []
             i = 0
