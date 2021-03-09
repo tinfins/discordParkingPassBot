@@ -25,7 +25,6 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         self.logger = logging.getLogger(__name__)
         self.bot = bot
         self.tz = pytz.timezone('America/New_York')
-        # Sqlite handler initialization
         self.dbH = DatabaseHelper('parkingPass')
         self.db_path = None
 
@@ -243,3 +242,4 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
 # When we load the cog, we use the name of the file.
 def setup(bot):
     bot.add_cog(ParkingPassCog(bot))
+    print('cog loaded')
