@@ -64,7 +64,7 @@ Python 3.7
 (See requirements.txt file for most up to date dependencies)
   
 ### Bot Credentials
-Store your discord bot token in a file titled .env in the top-level project directory
+Store your discord bot token in a file titled .env in the top-level project directory\
 ex. BOT_TOKEN=[bot token]
   
 ### Environment Setup
