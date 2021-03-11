@@ -1,3 +1,4 @@
+import logging
 import logging.config
 import datetime as dt
 import pytz
@@ -16,6 +17,24 @@ http://discordpy.readthedocs.io/en/rewrite/api.html#event-reference
 http://discordpy.readthedocs.io/en/rewrite/ext/commands/api.html#event-reference
 """
 
+tz = pytz.timezone('America/New_York')
+
+def timezone(*args):
+    return dt.datetime.now(tz).timetuple()
+
+def setup_logger(name, level=logging.INFO):
+    '''
+    To setup as many loggers as you want
+    '''
+    logging.Formatter.converter = timezone
+    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+    #handler = logging.FileHandler(log_file)
+    handler.setFormatter(formatter)
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    #logger.addHandler(handler)
+    return logger
+
 
 class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     '''
@@ -23,8 +42,8 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     '''
     def __init__(self, bot):
         self.logger = logging.getLogger(__name__)
+        self.pass_log = setup_logger('pass_log')
         self.bot = bot
-        self.tz = pytz.timezone('America/New_York')
         self.dbH = DatabaseHelper('parkingPass')
         self.db_path = None
 
@@ -41,7 +60,11 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         '''
         /pass out [pass#] - Check out pass
         '''
-        ts = dt.datetime.now(self.tz).strftime('%d-%b-%y %H:%M:%S')
+        guild_id = ctx.message.guild.id
+        handler = self.pass_log.FileHandler(f'src/logs/{guild_id.log')
+        self.pass_log.addHandler(handler)
+        #self.pass_log = setup_logger('pass_log', f'/src/logs/{guild_id}.log')
+        ts = dt.datetime.now(tz).strftime('%d-%b-%y %H:%M:%S')
         # User who sent message
         author = ctx.author
         user_name = author.name
@@ -54,6 +77,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             if out is False:
                 self.dbH.update_pass(self.dbH.connection(self.db_path), pass_num, user_name, ts, 1)
                 print(f'Pass {pass_num} has been checked out by {user_name}')
+                self.pass_log.info('Pass %s has been checked out by %s', pass_num, user_name)
                 self.logger.info('Pass %s has been checked out by %s', pass_num, user_name)
                 return await ctx.send(f'Pass {pass_num} has been checked out by {user_name}')
             elif out is True:
@@ -65,6 +89,10 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     
     @pass_out.error
     async def pass_out_error(self, ctx, error):
+        '''
+        Error catcher for pass_out command
+        :param error:
+        '''
         msg = f'check out error: {error}'
         await ctx.send(msg)
     
@@ -73,11 +101,12 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         '''
         /pass in [pass#] - Check in pass
         '''
+        guild_id = ctx.message.guild.id
+        self.pass_log = setup_logger('pass_log', f'/src/logs/{guild_id}.log')
         # User who sent message
         author = ctx.author
         user_name = author.name
         # Guild id from message
-        guild_id = ctx.message.guild.id
         self.db_path = f'src/db/{guild_id}.db'
         # Validate parking pass number
         if self.pass_validate(pass_num):
@@ -85,6 +114,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             if out is True:
                 self.dbH.update_pass(self.dbH.connection(self.db_path), pass_num, 'none', 'none', 0)
                 print(f'Pass {pass_num} has been checked in by {user_name}')
+                self.pass_log.info('Pass %s has been checked in by %s', pass_num, user_name)
                 self.logger.info('Pass %s has been checked in by %s', pass_num, user_name)
                 return await ctx.send(f'Pass {pass_num} has been checked in by {user_name}')
             elif out is False:
@@ -96,6 +126,10 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     
     @pass_in.error
     async def pass_in_error(self, ctx, error):
+        '''
+        Error catcher for pass_in command
+        :param error:
+        '''
         msg = f'check in error: {error}'
         await ctx.send(msg)
         
@@ -106,11 +140,11 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         '''
         /pass add [pass#] - Add pass
         '''
+        guild_id = ctx.message.guild.id
+        self.pass_log = setup_logger('pass_log', f'/src/logs/{guild_id}.log')
         # User who sent message
         author = ctx.author
         user_name = author.name
-        # Guild id from message
-        guild_id = ctx.guild.id
         self.dbH.setup(guild_id)
         self.db_path = f'src/db/{guild_id}.db'
         # Validate parking pass number
@@ -120,6 +154,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
                 add_pass = self.dbH.add_pass(self.dbH.connection(self.db_path), pass_num, 0)
                 if add_pass is True:
                     print(f'{pass_num} added to {self.db_path} by {user_name}')
+                    self.pass_log.info('%s added to %s by %s', pass_num, self.db_path, user_name)
                     self.logger.info('%s added to %s by %s', pass_num, self.db_path, user_name)
                     return await ctx.send(f'{pass_num} has been added to your pool...')
                 else:
@@ -131,6 +166,10 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     
     @pass_add.error
     async def pass_add_error(self, ctx, error):
+        '''
+        Error catcher for pass_add command
+        :param error:
+        '''
         msg = f'add pass error: {error}'
         await ctx.send(msg)
     
@@ -141,17 +180,18 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         '''
         /pass del [pass#] - Delete pass
         '''
+        guild_id = ctx.message.guild.id
+        self.pass_log = setup_logger('pass_log', f'/src/logs/{guild_id}.log')
         # User who sent message
         author = ctx.author
         user_name = author.name
-        # Guild id from message
-        guild_id = ctx.message.guild.id
         self.db_path = f'src/db/{guild_id}.db'
         # Validate parking pass number
         if self.pass_validate(pass_num):
             del_pass = self.dbH.del_pass(self.dbH.connection(self.db_path), pass_num)
             if del_pass:
                 print(f'{pass_num} deleted from {self.db_path} by {user_name}')
+                self.pass_log.info('%s deleted from %s by %s', pass_num, self.db_path, user_name)
                 self.logger.info('%s deleted from %s by %s', pass_num, self.db_path, user_name)
                 return await ctx.send(f'{pass_num} has been deleted from your pool...')
             else:
@@ -161,6 +201,10 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     
     @pass_del.error
     async def pass_del_error(self, ctx, error):
+        '''
+        Error catcher for pass_del command
+        :param error:
+        '''
         msg = f'del pass error: {error}'
         await ctx.send(msg)
     
@@ -171,9 +215,6 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         '''
         /pass status [pass#] - Pass status
         '''
-        # User who sent message
-        author = ctx.author
-        user_name = author.name
         # Guild id from message
         guild_id = ctx.message.guild.id
         self.db_path = f'src/db/{guild_id}.db'
@@ -198,6 +239,10 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     
     @status.error
     async def status_error(self, ctx, error):
+        '''
+        Error catcher for status command
+        :param error:
+        '''
         msg = f'add pass error: {error}'
         await ctx.send(msg)
     
@@ -208,15 +253,12 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         '''
         /pass report - Passes report
         '''
-        # User who sent message
-        author = ctx.author
-        user_name = author.name
         # Guild id from message
         guild_id = ctx.message.guild.id
         self.db_path = f'src/db/{guild_id}.db'
         status = self.dbH.select_passes(self.dbH.connection(self.db_path))
         if not status or status is None:
-            return await ctx.send(f'No parking passes are registered...')
+            return await ctx.send('No parking passes are registered...')
         else:
             p = []
             i = 0
@@ -235,9 +277,12 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
 
     @report.error
     async def report_error(self, ctx, error):
+        '''
+        Error catcher for report command
+        :param error:
+        '''
         msg = f'report error: {error}'
         await ctx.send(msg)
-
 
 # The setup function below is necessary. Remember we give bot.add_cog() the name of the class in this case SimpleCog.
 # When we load the cog, we use the name of the file.
