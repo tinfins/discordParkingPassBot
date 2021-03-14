@@ -265,17 +265,26 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         msg = f'report error: {error}'
         await ctx.send(msg)
     
-    @commands.command(name='get_report')
+    @commands.command(name='file')
     @commands.guild_only()
     @commands.has_any_role("supervisors", "admin")
-    async def get_report(self, ctx):
+    async def get_file(self, ctx):
         '''
-        /pass get_report - Download file report
+        /pass file - Download file report
         '''
         # Guild id from message
         guild_id = ctx.message.guild.id
         file = discord.File(f'src/logs/{guild_id}_pass_log.txt')
         return await ctx.send(file=file, content='Parking Pass Log')
+    
+    @report.error
+    async def get_file_error(self, ctx, error):
+        '''
+        Error catcher for report command
+        :param error:
+        '''
+        msg = f'file error: {error}'
+        await ctx.send(msg)
 
 # The setup function below is necessary. Remember we give bot.add_cog() the name of the class in this case SimpleCog.
 # When we load the cog, we use the name of the file.
