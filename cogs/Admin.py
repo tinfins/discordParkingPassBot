@@ -1,5 +1,5 @@
 from discord.ext import commands
-from .utils import checks
+#from .utils import checks
 import discord
 
 class Admin:
@@ -9,7 +9,7 @@ class Admin:
         self.bot = bot
 
     @commands.command(hidden=True)
-    @checks.is_owner()
+    @commands.has_any_role("admin")
     async def load(self, *, module : str):
         '''
         Loads a module.
@@ -23,7 +23,7 @@ class Admin:
             await self.bot.say('\N{OK HAND SIGN}')
 
     @commands.command(hidden=True)
-    @checks.is_owner()
+    @commands.has_any_role("admin")
     async def unload(self, *, module : str):
         '''
         Unloads a module.
@@ -37,7 +37,7 @@ class Admin:
             await self.bot.say('\N{OK HAND SIGN}')
 
     @commands.command(name='reload', hidden=True)
-    @checks.is_owner()
+    @commands.has_any_role("admin")
     async def _reload(self, *, module : str):
         '''
         Reloads a module.
