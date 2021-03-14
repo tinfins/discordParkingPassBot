@@ -9,7 +9,7 @@ class Admin(commands.Cog, name='Parking Pass Manager'):
         self.bot = bot
         self.logger = logging.getLogger(__name__)
 
-    @commands.command(hidden=True)
+    #@commands.command(hidden=True)
     @commands.has_any_role("admin")
     async def load(self, *, module : str):
         '''
@@ -24,7 +24,7 @@ class Admin(commands.Cog, name='Parking Pass Manager'):
             self.logger.info(f'{str} loaded')
             await self.bot.say('\N{OK HAND SIGN}')
 
-    @commands.command(hidden=True)
+    #@commands.command(hidden=True)
     @commands.has_any_role("admin")
     async def unload(self, *, module : str):
         '''
@@ -39,7 +39,7 @@ class Admin(commands.Cog, name='Parking Pass Manager'):
             self.logger.info(f'{str} unloaded')
             await self.bot.say('\N{OK HAND SIGN}')
 
-    @commands.command(name='reload', hidden=True)
+    @commands.command(name='reload')
     @commands.has_any_role("admin")
     async def _reload(self, *, module : str):
         '''
