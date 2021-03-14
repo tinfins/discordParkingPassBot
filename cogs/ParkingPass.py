@@ -232,7 +232,8 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     @commands.has_any_role("supervisors", "admin")
     async def report(self, ctx, all=None):
         '''
-        /pass report - Passes report
+        /pass report - Out pass report
+        /pass report all - All pass report
         '''
         # Guild id from message
         guild_id = ctx.message.guild.id
@@ -245,14 +246,16 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             p = []
             i = 0
             while i < len(status):
+                if all is None:
+                    if status['out'] == 0:
+                        status.pop(i)
+                        i += 1
+            while i < len(status):
                 for k, v in status[i].items():
                     key = k.replace('_', ' ').capitalize()
                     if k == 'out':
                         if v == 0:
-                            if all is not None:
-                                v = 'Returned'
-                            else:
-                                pass
+                            v = 'Returned'
                         else:
                             v = 'Issued'
                     p.append(f'{key}: {v}')
