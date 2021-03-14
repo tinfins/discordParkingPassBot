@@ -23,7 +23,7 @@ def pass_log(guild_id, msg):
     '''
     Write pass actions to log for download
     '''
-    with open(f'/src/logs/{guild_id}_pass_log.txt', 'a') as f:
+    with open(f'src/logs/{guild_id}_pass_log.txt', 'a') as f:
         ts = dt.datetime.now(tz).strftime('%d-%b-%y %H:%M:%S')
         f.write(f'{ts} - {msg}')
 
