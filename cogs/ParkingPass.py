@@ -230,7 +230,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     @commands.command(name='report')
     @commands.guild_only()
     @commands.has_any_role("supervisors", "admin")
-    async def report(self, ctx):
+    async def report(self, ctx, all=None):
         '''
         /pass report - Passes report
         '''
@@ -248,7 +248,10 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
                     key = k.replace('_', ' ').capitalize()
                     if k == 'out':
                         if v == 0:
-                            v = 'Returned'
+                            if all:
+                                v = 'Returned'
+                            else:
+                                pass
                         else:
                             v = 'Issued'
                     p.append(f'{key}: {v}')
