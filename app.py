@@ -5,7 +5,7 @@ from os.path import isfile, join
 import traceback
 import discord
 from discord.ext import commands
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 from src.utils.DatabaseHelper import DatabaseHelper
 
 #This is a multi file example showcasing many features of the command extension and the use of cogs.
