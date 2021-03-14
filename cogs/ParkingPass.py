@@ -274,7 +274,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         '''
         # Guild id from message
         guild_id = ctx.message.guild.id
-        file = discord.File(f'/src/logs/{guild_id}_pass_log.txt')
+        file = discord.File(f'src/logs/{guild_id}_pass_log.txt')
         return await ctx.send(file=file, content='Parking Pass Log')
 
 # The setup function below is necessary. Remember we give bot.add_cog() the name of the class in this case SimpleCog.
