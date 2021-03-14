@@ -25,7 +25,7 @@ def pass_log(guild_id, msg):
     '''
     with open(f'src/logs/{guild_id}_pass_log.txt', 'a') as f:
         ts = dt.datetime.now(tz).strftime('%d-%b-%y %H:%M:%S')
-        f.write(f'{ts} - {msg}')
+        f.write(f'{ts} - {msg}\n')
 
 
 class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
