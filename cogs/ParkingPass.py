@@ -19,21 +19,13 @@ http://discordpy.readthedocs.io/en/rewrite/ext/commands/api.html#event-reference
 
 tz = pytz.timezone('America/New_York')
 
-def timezone(*args):
-    return dt.datetime.now(tz).timetuple()
-
-def setup_logger(name, level=logging.INFO):
+def pass_log(guild_id, msg):
     '''
-    To setup as many loggers as you want
+    Write pass actions to log for download
     '''
-    logging.Formatter.converter = timezone
-    formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    #handler = logging.FileHandler(log_file)
-    handler.setFormatter(formatter)
-    logger = logging.getLogger(name)
-    logger.setLevel(level)
-    #logger.addHandler(handler)
-    return logger
+    with open(f'/src/logs/{guild_id}_pass_log.txt', 'a') as f:
+        ts = dt.datetime.now(tz).strftime('%d-%b-%y %H:%M:%S')
+        f.write(f'{ts} - {msg}')
 
 
 class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
@@ -72,8 +64,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             out = self.dbH.check_out_flag(self.dbH.connection(self.db_path), pass_num)
             if out is False:
                 self.dbH.update_pass(self.dbH.connection(self.db_path), pass_num, user_name, ts, 1)
-                print(f'Pass {pass_num} has been checked out by {user_name}')
-                self.pass_log.info('Pass %s has been checked out by %s', pass_num, user_name)
+                pass_log(guild_id, f'OUT - {user_name} checked out {pass_num}')
                 self.logger.info('Pass %s has been checked out by %s', pass_num, user_name)
                 return await ctx.send(f'Pass {pass_num} has been checked out by {user_name}')
             elif out is True:
@@ -108,8 +99,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             out = self.dbH.check_out_flag(self.dbH.connection(self.db_path), pass_num)
             if out is True:
                 self.dbH.update_pass(self.dbH.connection(self.db_path), pass_num, 'none', 'none', 0)
-                print(f'Pass {pass_num} has been checked in by {user_name}')
-                self.pass_log.info('Pass %s has been checked in by %s', pass_num, user_name)
+                pass_log(guild_id, f'IN - {user_name} checked in {pass_num}')
                 self.logger.info('Pass %s has been checked in by %s', pass_num, user_name)
                 return await ctx.send(f'Pass {pass_num} has been checked in by {user_name}')
             elif out is False:
@@ -147,8 +137,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             if out is None:
                 add_pass = self.dbH.add_pass(self.dbH.connection(self.db_path), pass_num, 0)
                 if add_pass is True:
-                    print(f'{pass_num} added to {self.db_path} by {user_name}')
-                    self.pass_log.info('%s added to %s by %s', pass_num, self.db_path, user_name)
+                    pass_log(guild_id, f'ADD - {user_name} added {pass_num}')
                     self.logger.info('%s added to %s by %s', pass_num, self.db_path, user_name)
                     return await ctx.send(f'{pass_num} has been added to your pool...')
                 else:
@@ -183,8 +172,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         if self.pass_validate(pass_num):
             del_pass = self.dbH.del_pass(self.dbH.connection(self.db_path), pass_num)
             if del_pass:
-                print(f'{pass_num} deleted from {self.db_path} by {user_name}')
-                self.pass_log.info('%s deleted from %s by %s', pass_num, self.db_path, user_name)
+                pass_log(guild_id, f'DEL - {user_name} deleted {pass_num}')
                 self.logger.info('%s deleted from %s by %s', pass_num, self.db_path, user_name)
                 return await ctx.send(f'{pass_num} has been deleted from your pool...')
             else:
@@ -276,6 +264,18 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         '''
         msg = f'report error: {error}'
         await ctx.send(msg)
+    
+    @commands.command(name='get_report')
+    @commands.guild_only()
+    @commands.has_any_role("supervisors", "admin")
+    async def get_report(self, ctx):
+        '''
+        /pass get_report - Download file report
+        '''
+        # Guild id from message
+        guild_id = ctx.message.guild.id
+        file = discord.File(f'/src/logs/{guild_id}_pass_log.txt')
+        return await ctx.send(file=file, content='Parking Pass Log')
 
 # The setup function below is necessary. Remember we give bot.add_cog() the name of the class in this case SimpleCog.
 # When we load the cog, we use the name of the file.
