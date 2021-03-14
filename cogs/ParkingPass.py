@@ -247,7 +247,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             i = 0
             while i < len(status):
                 if all is None:
-                    if status['out'] == 0:
+                    if status[i]['out'] == 0:
                         status.pop(i)
                         i += 1
             while i < len(status):
