@@ -42,7 +42,6 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     '''
     def __init__(self, bot):
         self.logger = logging.getLogger(__name__)
-        self.pass_log = setup_logger('pass_log')
         self.bot = bot
         self.dbH = DatabaseHelper('parkingPass')
         self.db_path = None
@@ -61,9 +60,6 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         /pass out [pass#] - Check out pass
         '''
         guild_id = ctx.message.guild.id
-        handler = self.pass_log.FileHandler(f'src/logs/{guild_id.log')
-        self.pass_log.addHandler(handler)
-        #self.pass_log = setup_logger('pass_log', f'/src/logs/{guild_id}.log')
         ts = dt.datetime.now(tz).strftime('%d-%b-%y %H:%M:%S')
         # User who sent message
         author = ctx.author
@@ -102,7 +98,6 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         /pass in [pass#] - Check in pass
         '''
         guild_id = ctx.message.guild.id
-        self.pass_log = setup_logger('pass_log', f'/src/logs/{guild_id}.log')
         # User who sent message
         author = ctx.author
         user_name = author.name
@@ -141,7 +136,6 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         /pass add [pass#] - Add pass
         '''
         guild_id = ctx.message.guild.id
-        self.pass_log = setup_logger('pass_log', f'/src/logs/{guild_id}.log')
         # User who sent message
         author = ctx.author
         user_name = author.name
@@ -181,7 +175,6 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         /pass del [pass#] - Delete pass
         '''
         guild_id = ctx.message.guild.id
-        self.pass_log = setup_logger('pass_log', f'/src/logs/{guild_id}.log')
         # User who sent message
         author = ctx.author
         user_name = author.name
