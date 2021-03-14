@@ -2,7 +2,7 @@ import logging.config
 from discord.ext import commands
 import discord
 
-class Admin(commands.Cog, name='Parking Pass Manager'):
+class Admin(commands.Cog, name='Admin'):
     """Admin-only commands that make the bot dynamic."""
 
     def __init__(self, bot):
