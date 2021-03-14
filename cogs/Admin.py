@@ -1,12 +1,12 @@
 from discord.ext import commands
-#from .utils import checks
 import discord
 
-class Admin:
+class Admin(commands.Cog, name='Parking Pass Manager'):
     """Admin-only commands that make the bot dynamic."""
 
     def __init__(self, bot):
         self.bot = bot
+        self.logger = logging.getLogger(__name__)
 
     @commands.command(hidden=True)
     @commands.has_any_role("admin")
@@ -20,6 +20,7 @@ class Admin:
             await self.bot.say('\N{PISTOL}')
             await self.bot.say('{}: {}'.format(type(e).__name__, e))
         else:
+            self.logger.info(f'{str} loaded')
             await self.bot.say('\N{OK HAND SIGN}')
 
     @commands.command(hidden=True)
@@ -34,6 +35,7 @@ class Admin:
             await self.bot.say('\N{PISTOL}')
             await self.bot.say('{}: {}'.format(type(e).__name__, e))
         else:
+            self.logger.info(f'{str} unloaded')
             await self.bot.say('\N{OK HAND SIGN}')
 
     @commands.command(name='reload', hidden=True)
@@ -50,7 +52,6 @@ class Admin:
             await self.bot.say('{}: {}'.format(type(e).__name__, e))
         else:
             await self.bot.say('\N{OK HAND SIGN}')
-
 
 def setup(bot):
     bot.add_cog(Admin(bot))
