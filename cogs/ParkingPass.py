@@ -245,7 +245,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             i = 0
             if all is None:
                 for row in status:
-                    self.logger(row)
+                    self.logger.info(row)
                     if row['out'] == 0:
                         self.logger.info(row)
                         status.remove(row)
