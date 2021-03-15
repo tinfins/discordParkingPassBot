@@ -238,17 +238,13 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         guild_id = ctx.message.guild.id
         self.db_path = f'src/db/{guild_id}.db'
         status = self.dbH.select_passes(self.dbH.connection(self.db_path))
-        for row in status:
-            self.logger.info(row)
-        if not status or status is None:
-            return await ctx.send('No parking passes are registered...')
-        else:
-            p = []
-            i = 0
+        if status:
             if all is None:
                 for row in status:
                     if row['out'] == 0:
                         status.remove(row)
+            p = []
+            i = 0
             while i < len(status):
                 for k, v in status[i].items():
                     key = k.replace('_', ' ').capitalize()
@@ -261,6 +257,8 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
                 p.append('')
                 i += 1
             return await ctx.send("```"+'\n'.join(p)+"```")
+        else:
+            return await ctx.send('No parking passes are registered...')
 
     @report.error
     async def report_error(self, ctx, error):
