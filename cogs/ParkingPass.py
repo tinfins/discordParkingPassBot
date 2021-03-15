@@ -241,6 +241,8 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         if not status or status is None:
             return await ctx.send('No parking passes are registered...')
         else:
+            for row in status:
+                self.logger.info(row)
             p = []
             i = 0
             if all is None:
@@ -249,7 +251,6 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
                         status.remove(row)
             while i < len(status):
                 for k, v in status[i].items():
-                    self.logger.info(status[i].items())
                     key = k.replace('_', ' ').capitalize()
                     if k == 'out':
                         if v == 0:
