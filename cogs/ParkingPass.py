@@ -247,7 +247,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             i = 0
             if not all:
                 for row in status:
-                    if row['out'] == 0:
+                    if row['out'].value() == 0:
                         status.pop(row)
             while i < len(status):
                 for k, v in status[i].items():
