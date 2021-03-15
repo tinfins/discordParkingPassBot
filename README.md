@@ -6,6 +6,8 @@
   
 [![Python latest](https://img.shields.io/static/v1?label=Python&message=latest&color=brightgreen&style=plastic)](https://www.python.org/downloads/)
   
+[![Commits](https://img.shields.io/github/last-commit/tinfins/discordParkingPassBot/main?style=plastic)](https://github.com/tinfins/discordParkingPassBot/commits/main)
+  
 [![Open Issues](https://img.shields.io/github/issues/tinfins/discordParkingPassBot?style=plastic)](https://github.com/tinfins/discordParkingPassBot/issues?q=is%3Aopen+is%3Aissue)
 [![Closed Issues](https://img.shields.io/github/issues-closed/tinfins/discordParkingPassBot?style=plastic)](https://github.com/tinfins/discordParkingPassBot/issues?q=is%3Aissue+is%3Aclosed)
   
