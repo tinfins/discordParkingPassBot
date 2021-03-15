@@ -2,9 +2,11 @@
   
 # Parking Pass Manager
 
-[![Invite to Discord](https://img.shields.io/static/v1?label=parkingPassMngr&message=Invite&color=7289da)](https://discord.com/api/oauth2/authorize?client_id=817134568405860360&permissions=85056&scope=bot)
+[![Invite to Discord](https://img.shields.io/static/v1?label=parkingPassMngr&message=Invite&color=7289da&style=plastic)](https://discord.com/api/oauth2/authorize?client_id=817134568405860360&permissions=85056&scope=bot)
   
-[![Python latest](https://img.shields.io/static/v1?label=Python&message=latest&color=brightgreen)](https://www.python.org/downloads/)
+[![Python latest](https://img.shields.io/static/v1?label=Python&message=latest&color=brightgreen&style=plastic)](https://www.python.org/downloads/)
+
+[![Issues](https://img.shields.io/github/issues-closed/tinfins/discordParkingPassBot?style=plastic)](https://github.com/tinfins/discordParkingPassBot/issues)
   
 Parking pass manager is a discord bot to track parking passes using an SQLite db. Written in [Python](https://www.python.org) using the [discord.py](https://github.com/Rapptz/discord.py) library.
 The bot creates a separate SQLite database for each guild to enable faster searching and eliminate read/write errors due to database locks. Each database contains a table with 4 fields:
