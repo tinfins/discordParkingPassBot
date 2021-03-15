@@ -259,7 +259,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
                     p.append(f'{key}: {v}')
                 p.append('')
                 i += 1
-            return await ctx.send('\n'.join(p))
+            return await ctx.send("```"+'\n'.join(p)+"```")
 
     @report.error
     async def report_error(self, ctx, error):
