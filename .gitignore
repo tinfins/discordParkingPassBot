@@ -130,3 +130,7 @@ dmypy.json
 
 # Sqlite3 databases
 *.db
+
+# Supervisor conf files
+# Upload all conf files explicitly
+*.conf

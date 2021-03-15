@@ -5,7 +5,7 @@ from os.path import isfile, join
 import traceback
 import discord
 from discord.ext import commands
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 from src.utils.DatabaseHelper import DatabaseHelper
 
 #This is a multi file example showcasing many features of the command extension and the use of cogs.
@@ -21,7 +21,7 @@ from src.utils.DatabaseHelper import DatabaseHelper
 #Familiarising yourself with the documentation will greatly help you in creating your bot and using cogs.
 
 
-load_dotenv()
+load_dotenv(find_dotenv())
 TOKEN = os.getenv('PARKINGPASSBOT_TOKEN')
 
 logging.config.fileConfig(fname='src/utils/config.ini', disable_existing_loggers=False)
