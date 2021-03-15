@@ -238,11 +238,11 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         guild_id = ctx.message.guild.id
         self.db_path = f'src/db/{guild_id}.db'
         status = self.dbH.select_passes(self.dbH.connection(self.db_path))
+        for row in status:
+            self.logger.info(row)
         if not status or status is None:
             return await ctx.send('No parking passes are registered...')
         else:
-            for row in status:
-                self.logger.info(row)
             p = []
             i = 0
             if all is None:
