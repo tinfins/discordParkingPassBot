@@ -240,9 +240,10 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         status = self.dbH.select_passes(self.dbH.connection(self.db_path))
         if status:
             if all is None:
-                for row in status:
-                    if row['out'] == 0:
-                        status.remove(row)
+                status[:] = [row for row in status if row['out'] != 0]
+                #for row in status:
+                #    if row['out'] == 0:
+                #        status.remove(row)
             p = []
             i = 0
             while i < len(status):
