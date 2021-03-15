@@ -245,7 +245,10 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         else:
             p = []
             i = 0
-            print(status[['out']])
+            if not all:
+                for row in status:
+                    if row['out'] == 0:
+                        status.pop(row)
             while i < len(status):
                 for k, v in status[i].items():
                     key = k.replace('_', ' ').capitalize()
