@@ -245,12 +245,11 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
             i = 0
             if all is None:
                 for row in status:
-                    self.logger.info(row)
                     if row['out'] == 0:
-                        self.logger.info(row)
                         status.remove(row)
             while i < len(status):
                 for k, v in status[i].items():
+                    self.logger.info(status[i].items())
                     key = k.replace('_', ' ').capitalize()
                     if k == 'out':
                         if v == 0:
