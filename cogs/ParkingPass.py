@@ -232,8 +232,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
     @commands.has_any_role("supervisors", "admin")
     async def report(self, ctx, all=None):
         '''
-        /pass report - Out pass report
-        /pass report all - All pass report
+        /pass report (all) - (All) Out pass report
         '''
         # Guild id from message
         guild_id = ctx.message.guild.id
@@ -244,7 +243,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         else:
             p = []
             i = 0
-            if not all:
+            if all is None:
                 for row in status:
                     if row['out'] == 0:
                         status.remove(row)
