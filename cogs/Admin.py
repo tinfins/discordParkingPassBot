@@ -52,6 +52,7 @@ class Admin(commands.Cog, name='Admin'):
             await ctx.send('\N{PISTOL}')
             await ctx.send('{}: {}'.format(type(e).__name__, e))
         else:
+            self.logger.info(f'{str} reloaded')
             await ctx.send('\N{OK HAND SIGN}')
 
 def setup(bot):
