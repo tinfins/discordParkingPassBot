@@ -93,7 +93,10 @@ ex. BOT_TOKEN=[bot token]
 ### Running
 After inviting the bot to your discord server, run the bot by starting your virtual environment, then typing python3 app.py from the top level directory
   
-For a 24/7 online presence of your bot, installing supervisor (sudo apt install supervisor) is recommended.
+For a 24/7 online presence of your bot, creating a systemd service file (example included) or installing supervisor (sudo apt install supervisor) to manage your processes is recommended.
+
+## Alert!
+The discord.py library used to build this application is now deprecated. As of now, this bot will not be rebuilt with a non-deprecated library
   
 ## License
 This project is licensed under the MIT License - see the [LICENSE](https://github.com/tinfins/discordParkingPassBot/blob/main/LICENSE) file for details.

@@ -1,0 +1,17 @@
+[Unit]
+Description=Parking Pass Mngr discord bot
+After=multi-user.target
+
+[Service]
+User=tinfins
+Group=tinfins
+Type=idle
+WorkingDirectory=/home/discordParkingPassBot/prod/
+ExecStart=/home/discordParkingPassBot/venv/bin/python3 /home/discordParkingPassBot/prod/app.py
+Restart=always
+RestartSec=15
+RestartPreventExitStatus=0
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target
