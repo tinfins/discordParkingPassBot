@@ -5,6 +5,8 @@
 [![Invite to Discord](https://img.shields.io/static/v1?label=parkingPassMngr&message=Invite&color=7289da&style=plastic)](https://discord.com/api/oauth2/authorize?client_id=817134568405860360&permissions=0&scope=bot%20applications.commands)
   
 [![Python latest](https://img.shields.io/static/v1?label=Python&message=latest&color=blue&style=plastic)](https://www.python.org/downloads/)
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3c956012b35f4ad7a9811a4f2bd63ad2)](https://www.codacy.com/gh/tinfins/discordParkingPassBot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tinfins/discordParkingPassBot&amp;utm_campaign=Badge_Grade)
   
 [![Commits](https://img.shields.io/github/last-commit/tinfins/discordParkingPassBot/main?style=plastic)](https://github.com/tinfins/discordParkingPassBot/commits/main)
   

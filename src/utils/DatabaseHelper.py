@@ -3,14 +3,16 @@ from src.utils.SqliteHandler import SqliteHandler
 
 
 class DatabaseHelper:
-    """
-    Go between class from cog to SqliteHandler
+    """Go between class from cog to SqliteHandler
     """
     def __init__(self, table_name):
+        """
+        :param table_name:ALWAYS parkingPass
+        """
         self.sqliteH = SqliteHandler()
         self.table_name = table_name
         self.conn = None
-         
+
     def table_exists_sql(self, conn):
         """
         Check if table exists
@@ -56,7 +58,7 @@ class DatabaseHelper:
         :param pass_num: Parking pass number
         :return:var:True if success, else False
         """
-        sql = f"DELETE FROM {self.table_name} WHERE pass_id=?"
+        sql = f"DELETE FROM {self.table_name} WHERE pass_id=(?)"
         task = (pass_num,)
         var = self.sqliteH.execute_sql(conn, sql, task)
         self.sqliteH.close_connection(conn)
