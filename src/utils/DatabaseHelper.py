@@ -110,7 +110,7 @@ class DatabaseHelper:
         :param conn: Connection object
         :return:Dict of passes
         """
-        sql = f"SELECT * FROM {self.table_name}"
+        sql = "SELECT * FROM %s", (self.table_name,)
         conn.row_factory = sqlite3.Row
         cur = self.sqliteH.execute_select(conn, sql)
         rows = cur.fetchall()

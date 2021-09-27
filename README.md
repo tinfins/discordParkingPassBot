@@ -46,7 +46,7 @@ Python >= 3.7
 -   typing-extensions==3.10.0.2
 -   yarl==1.6.3
   
-(See requirements.txt file for most up to date dependencies)
+(See requirements.txt for most up to date dependencies)
   
 ### Bot Credentials
 Store your discord bot token in a file titled .env in the top-level project directory
