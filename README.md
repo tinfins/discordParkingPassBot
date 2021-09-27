@@ -2,9 +2,9 @@
   
 # Parking Pass Manager
 
-[![Invite to Discord](https://img.shields.io/static/v1?label=parkingPassMngr&message=Invite&color=7289da&style=plastic)](https://discord.com/api/oauth2/authorize?client_id=817134568405860360&permissions=85056&scope=bot)
+[![Invite to Discord](https://img.shields.io/static/v1?label=parkingPassMngr&message=Invite&color=7289da&style=plastic)](https://discord.com/api/oauth2/authorize?client_id=817134568405860360&permissions=0&scope=bot%20applications.commands)
   
-[![Python latest](https://img.shields.io/static/v1?label=Python&message=latest&color=brightgreen&style=plastic)](https://www.python.org/downloads/)
+[![Python latest](https://img.shields.io/static/v1?label=Python&message=latest&color=blue&style=plastic)](https://www.python.org/downloads/)
   
 [![Commits](https://img.shields.io/github/last-commit/tinfins/discordParkingPassBot/main?style=plastic)](https://github.com/tinfins/discordParkingPassBot/commits/main)
   
@@ -92,6 +92,8 @@ ex. BOT_TOKEN=[bot token]
   
 ### Running
 After inviting the bot to your discord server, run the bot by starting your virtual environment, then typing python3 app.py from the top level directory
+
+Ensure the bot has permissions to send messages in your default system channel.
   
 For a 24/7 online presence of your bot, creating a systemd service file (example included) or installing supervisor (sudo apt install supervisor) to manage your processes is recommended.
 

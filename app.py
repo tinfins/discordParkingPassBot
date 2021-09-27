@@ -54,6 +54,7 @@ if __name__ == '__main__':
 @bot.event
 async def on_ready():
     """https://discordpy.readthedocs.io/en/rewrite/api.html#discord.on_ready"""
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="/help"))
     print('Successfully logged in and booted...!')
     print(f'Logged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}')
     logger.info('Successfully logged in and booted...!')
