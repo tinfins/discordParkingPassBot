@@ -3,10 +3,13 @@ from src.utils.SqliteHandler import SqliteHandler
 
 
 class DatabaseHelper:
-    """Go between class from cog to SqliteHandler
-    """
+
+    """Go between class from cog to SqliteHandler"""
+
     def __init__(self, table_name):
         """
+        Init for DatabaseHelper class
+
         :param table_name:ALWAYS parkingPass
         """
         self.sqliteH = SqliteHandler()
@@ -24,10 +27,11 @@ class DatabaseHelper:
         var = bool(cur.fetchone()[0] == 1)
         self.sqliteH.close_connection(conn, cur)
         return var
-        
+
     def create_table_sql(self, conn):
         """
         Form statement to create table
+
         :param conn: Connection object
         :return:var:True if success, else False
         """
@@ -36,7 +40,7 @@ class DatabaseHelper:
         var = self.sqliteH.execute_sql(conn, sql)
         self.sqliteH.close_connection(conn)
         return var
-    
+
     def add_pass(self, conn, pass_num, out_bool):
         """
         Form parameterized statement to add pass to table
@@ -50,7 +54,7 @@ class DatabaseHelper:
         var = self.sqliteH.execute_sql(conn, sql, task)
         self.sqliteH.close_connection(conn)
         return var
-    
+
     def del_pass(self, conn, pass_num):
         """
         Delete pass from sqlite database
@@ -58,12 +62,12 @@ class DatabaseHelper:
         :param pass_num: Parking pass number
         :return:var:True if success, else False
         """
-        sql = f"DELETE FROM {self.table_name} WHERE pass_id=(?)"
+        sql = "DELETE FROM %s WHERE pass_id=?", (self.table_name,)
         task = (pass_num,)
         var = self.sqliteH.execute_sql(conn, sql, task)
         self.sqliteH.close_connection(conn)
         return var
-    
+
     def update_pass(self, conn, pass_num, name, date, out):
         """
         Update status of parking pass (checked in/checked out)
@@ -74,12 +78,12 @@ class DatabaseHelper:
         :param out: Boolean: 1 out, 0 in
         :return:var:True if success, else False
         """
-        sql = f"UPDATE {self.table_name} SET name = ?, date = ?, out = ? WHERE pass_id = ?"
+        sql = "UPDATE %s SET name = ?, date = ?, out = ? WHERE pass_id = ?", (self.table_name,)
         task = (name, date, out, pass_num,)
         var = self.sqliteH.execute_sql(conn, sql, task)
         self.sqliteH.close_connection(conn)
         return var
-    
+
     def check_pass(self, conn, pass_num):
         """
         Check if pass exists in database
@@ -87,7 +91,7 @@ class DatabaseHelper:
         :param pass_num: parking pass id
         :return:List:Parking pass info as List
         """
-        sql = f"SELECT * FROM {self.table_name} WHERE pass_id = ?"
+        sql = "SELECT * FROM %s WHERE pass_id = ?", (self.table_name,)
         task = (pass_num,)
         conn.row_factory = sqlite3.Row
         cur = self.sqliteH.execute_select(conn, sql, task)
@@ -98,14 +102,14 @@ class DatabaseHelper:
             passes.append(d)
         self.sqliteH.close_connection(conn, cur)
         return passes
-    
+
     def check_out_flag(self, conn, pass_num):
-        sql = f"SELECT out FROM {self.table_name} WHERE pass_id = ?"
+        sql = "SELECT out FROM %s WHERE pass_id = ?", (self.table_name,)
         task = (int(pass_num),)
         cur = self.sqliteH.execute_select(conn, sql, task)
         for row in cur:
             return bool(row[0] == 1)
-    
+
     def select_passes(self, conn):
         """
         Select all rows in table
@@ -122,11 +126,16 @@ class DatabaseHelper:
             passes.append(d)
         self.sqliteH.close_connection(conn, cur)
         return passes
-    
+
     def connection(self, db_path):
         return SqliteHandler().create_connection(db_path)
-    
+
     def setup(self, guild):
+        """
+        Database setup
+
+        :param guild:Int:Guild ID
+        """
         db_path = f'src/db/{guild}.db'
         sqlite_h = SqliteHandler()
         db_exists = sqlite_h.check_database_exists(db_path)
@@ -135,4 +144,3 @@ class DatabaseHelper:
         table_exists = self.table_exists_sql(self.connection(db_path))
         if table_exists is False:
             self.create_table_sql(self.connection(db_path))
-    
