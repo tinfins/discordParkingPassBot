@@ -1,3 +1,7 @@
+"""
+This module loads the token, cogs, and runs the bot app
+"""
+
 import logging.config
 import os
 from os import listdir
@@ -5,49 +9,34 @@ from os.path import isfile, join
 import traceback
 import discord
 from discord.ext import commands
+from discord_slash import SlashCommand
 from dotenv import load_dotenv, find_dotenv
 from src.utils.DatabaseHelper import DatabaseHelper
 
-#This is a multi file example showcasing many features of the command extension and the use of cogs.
-#These are examples only and are not intended to be used as a fully functioning bot. Rather they should give you a basic
-#understanding and platform for creating your own bot.
-#These examples make use of Python 3.6.2 and the rewrite version on the lib.
-#For examples on cogs for the async version:
-#https://gist.github.com/leovoel/46cd89ed6a8f41fd09c5
-#Rewrite Documentation:
-#http://discordpy.readthedocs.io/en/rewrite/api.html
-#Rewrite Commands Documentation:
-#http://discordpy.readthedocs.io/en/rewrite/ext/commands/api.html
-#Familiarising yourself with the documentation will greatly help you in creating your bot and using cogs.
+# For examples on cogs for the async version:
+# https://gist.github.com/leovoel/46cd89ed6a8f41fd09c5
+# Rewrite Documentation:
+# https://discordpy.readthedocs.io/en/rewrite/api.html
+# Rewrite Commands Documentation:
+# https://discordpy.readthedocs.io/en/rewrite/ext/commands/api.html
+# Familiarising yourself with the documentation will greatly help you in creating your bot and using cogs.
 
-
+# Load Discord secret token from .env file
 load_dotenv(find_dotenv())
 TOKEN = os.getenv('PARKINGPASSBOT_TOKEN')
 
+# Set up logging for application to write to
 logging.config.fileConfig(fname='src/utils/config.ini', disable_existing_loggers=False)
 logger = logging.getLogger(__name__)
 
-def get_prefix(bot, message):
-    """A callable Prefix for our bot. This could be edited to allow per server prefixes."""
-    # Notice how you can use spaces in prefixes. Try to keep them simple though.
-    prefixes = ['/pass ', '/park ', '!pass ', '!park ']
-    # Check to see if we are outside of a guild. e.g DM's etc.
-    if not message.guild:
-        # Only allow ? to be used in DMs
-        return '?'
-    # If we are in a guild, we allow for the user to mention us or use any of the prefixes in our list.
-    return commands.when_mentioned_or(*prefixes)(bot, message)
-
-# Below cogs represents our folder our cogs are in. Following is the file name. So 'meme.py' in cogs, would be cogs.meme
-# Think of it like a dot path import
-# This is the directory all are located in.
+# Cog directory. 'meme.py' in cogs directory is be cogs.meme
 cogs_dir = "cogs"
 
-intents = discord.Intents(members=True,messages=True,guilds=True)
+bot = commands.Bot(command_prefix="!", description='A parking pass manager using slash commands', self_bot=True,
+                   intents=discord.Intents.default())
+slash = SlashCommand(bot, sync_commands=True)
 
-bot = commands.Bot(command_prefix=get_prefix, description='A parking pass manager. Prefix your commands with /pass or !pass', intents=intents)
-
-# Here we load our extensions(cogs) that are located in the cogs directory. Any file in here attempts to load.
+# Load the extensions(cogs) that are located in the cogs directory. Any file in here attempts to load.
 if __name__ == '__main__':
     for extension in [f.replace('.py', '') for f in listdir(cogs_dir) if isfile(join(cogs_dir, f))]:
         try:
@@ -61,26 +50,23 @@ if __name__ == '__main__':
             logger.error('Failed to load extension: %s', extension)
             traceback.print_exc()
 
+
 @bot.event
 async def on_ready():
-    """http://discordpy.readthedocs.io/en/rewrite/api.html#discord.on_ready"""
-    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="/pass help, !pass help"))
+    """https://discordpy.readthedocs.io/en/rewrite/api.html#discord.on_ready"""
     print('Successfully logged in and booted...!')
     print(f'Logged in as: {bot.user.name} - {bot.user.id}\nVersion: {discord.__version__}')
     logger.info('Successfully logged in and booted...!')
     logger.info('Logged in as: %s - %s\nVersion: %s', bot.user.name, bot.user.id, discord.__version__)
 
+
 @bot.event
 async def on_guild_join(guild):
-    dbH = DatabaseHelper('parkingPass')
-    dbH.setup(guild.id)
+    """https://discordpy.readthedocs.io/en/rewrite/api.html#discord.on_guild_join"""
+    db_h = DatabaseHelper('parkingPass')
+    db_h.setup(guild.id)
     print(f'Joined guild: {guild.id}')
     logger.info('Joined guild: %s', guild.id)
 
-@bot.event
-async def on_guild_remove(guild):
-    os.remove(f'src/db/{guild.id}.db')
-    print(f'Removed from guild: {guild.id}')
-    logger.info('Removed from guild: %s', guild.id)
 
 bot.run(TOKEN, bot=True, reconnect=True)
