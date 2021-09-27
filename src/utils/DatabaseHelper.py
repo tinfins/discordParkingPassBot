@@ -3,6 +3,9 @@ from src.utils.SqliteHandler import SqliteHandler
 
 
 class DatabaseHelper:
+    """
+    Go between class from cog to SqliteHandler
+    """
     def __init__(self, table_name):
         self.sqliteH = SqliteHandler()
         self.table_name = table_name
@@ -14,7 +17,7 @@ class DatabaseHelper:
         :param conn: Connection object
         :return:var:True if table exists, else False
         """
-        sql = f"SELECT count(name) FROM sqlite_master WHERE type='table' AND name='{self.table_name}'"
+        sql = "SELECT count(name) FROM sqlite_master WHERE type='table' AND name='%s'", (self.table_name,)
         cur = self.sqliteH.execute_select(conn, sql)
         var = bool(cur.fetchone()[0] == 1)
         self.sqliteH.close_connection(conn, cur)
