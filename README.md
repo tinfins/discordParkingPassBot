@@ -22,9 +22,9 @@ The bot creates a separate SQLite database for each guild to enable faster searc
 
   
 Commands are role limited.
-All users have access to the following commands:
+Users have access to the following commands:
   
-<img src="https://github.com/tinfins/discordParkingPassBot/blob/main/src/assets/parkingpassbot_help.jpg" width=400>
+<img src="https://github.com/tinfins/discordParkingPassBot/blob/main/src/assets/parkingpassbot_help.jpg" width=300>
 
   
 ## For Developers:
