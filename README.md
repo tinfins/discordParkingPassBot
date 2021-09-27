@@ -53,6 +53,7 @@ Store your discord bot token in a file titled .env in the top-level project dire
   
 ### Environment Setup
 -   Install Python 3.7.1 or higher
+
 -   Clone github repository
     -   All Platforms: git clone https://github.com/tinfins/discordParkingPassBot
 
