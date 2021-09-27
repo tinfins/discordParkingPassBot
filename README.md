@@ -2,16 +2,16 @@
   
 # Parking Pass Manager
 
-[![Invite to Discord](https://img.shields.io/static/v1?label=parkingPassMngr&message=Invite&color=7289da&style=plastic)](https://discord.com/api/oauth2/authorize?client_id=817134568405860360&permissions=0&scope=bot%20applications.commands)
+[![Invite to Discord](https://img.shields.io/static/v1?label=parkingPassMngr&message=Invite&color=7289da&style=plastic&logo=Discord&logoColor=ffffff)](https://discord.com/api/oauth2/authorize?client_id=817134568405860360&permissions=0&scope=bot%20applications.commands)
   
-[![Python latest](https://img.shields.io/static/v1?label=Python&message=latest&color=blue&style=plastic)](https://www.python.org/downloads/)
+[![Python latest](https://img.shields.io/static/v1?label=Python&message=latest&color=blue&style=plastic&logo=Python&logoColor=ffffff)](https://www.python.org/downloads/)
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/3c956012b35f4ad7a9811a4f2bd63ad2)](https://www.codacy.com/gh/tinfins/discordParkingPassBot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tinfins/discordParkingPassBot&amp;utm_campaign=Badge_Grade)
+[![Codacy Analysis](https://img.shields.io/codacy/grade/3c956012b35f4ad7a9811a4f2bd63ad2?style=plastic&logo=Codacy)](https://www.codacy.com/gh/tinfins/discordParkingPassBot/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=tinfins/discordParkingPassBot&amp;utm_campaign=Badge_Grade)
   
-[![Commits](https://img.shields.io/github/last-commit/tinfins/discordParkingPassBot/main?style=plastic)](https://github.com/tinfins/discordParkingPassBot/commits/main)
+[![Commits](https://img.shields.io/github/last-commit/tinfins/discordParkingPassBot/main?style=plastic&logo=GitHub)](https://github.com/tinfins/discordParkingPassBot/commits/main)
   
-[![Open Issues](https://img.shields.io/github/issues/tinfins/discordParkingPassBot?style=plastic)](https://github.com/tinfins/discordParkingPassBot/issues?q=is%3Aopen+is%3Aissue)
-[![Closed Issues](https://img.shields.io/github/issues-closed/tinfins/discordParkingPassBot?style=plastic)](https://github.com/tinfins/discordParkingPassBot/issues?q=is%3Aissue+is%3Aclosed)
+[![Open Issues](https://img.shields.io/github/issues/tinfins/discordParkingPassBot?style=plastic&logo=GitHub)](https://github.com/tinfins/discordParkingPassBot/issues?q=is%3Aopen+is%3Aissue)
+[![Closed Issues](https://img.shields.io/github/issues-closed/tinfins/discordParkingPassBot?style=plastic&logo=GitHub)](https://github.com/tinfins/discordParkingPassBot/issues?q=is%3Aissue+is%3Aclosed)
   
 Parking pass manager is a discord bot to track parking passes using an SQLite db. Written in [Python](https://www.python.org) using the [discord.py](https://github.com/Rapptz/discord.py) library.
 The bot creates a separate SQLite database for each guild to enable faster searching and eliminate read/write errors due to database locks. Each database contains a table with 4 fields:
