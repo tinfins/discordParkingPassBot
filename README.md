@@ -23,37 +23,8 @@ The bot creates a separate SQLite database for each guild to enable faster searc
   
 Commands are role limited.
 All users have access to the following commands:
-```
-A parking pass manager. Prefix your commands with /pass or !pass
+<img align="left" src="https://github.com/tinfins/discordParkingPassBot/blob/main/src/assets/parkingpassbog_help.png" width=400>
 
-Parking Pass Manager:
-  in   /pass in [pass #] - Check in parking pass
-  out  /pass out [pass #] - Check out parking pass
-​No Category:
-  help Shows this message
-
-Type /pass help command for more info on a command.
-You can also type /pass help category for more info on a category.
-```  
-  
-The roles of supervisors and admin have access to the following commands:
-
-```
-A parking pass manager. Prefix your commands with /pass or !pass
-
-Parking Pass Manager:
-  add    /pass add [pass #] - Add pass to database
-  del    /pass del [pass #] - Delete pass to database
-  in     /pass in [pass #] - Check in parking pass
-  out    /pass out [pass #] - Check out parking pass
-  report /pass report - Show status of passes
-  status /pass status [pass #] - Check status of pass
-​No Category:
-  help   Shows this message
-
-Type !pass help command for more info on a command.
-You can also type !pass help category for more info on a category.
-```  
   
 ## For Developers:
 For Developers interested in using our application as a base to building their own app or for learning purposes, please see our [LICENSE](https://github.com/tinfins/discordParkingPassBot/blob/main/LICENSE).
