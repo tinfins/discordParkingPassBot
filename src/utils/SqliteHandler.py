@@ -16,7 +16,7 @@ class SqliteHandler:
         self.logger = logging.getLogger(__name__)
         self.db_file = None
         self.conn = None
-    
+
     def check_database_exists(self, db_path):
         """
         Check if SQLite database exists

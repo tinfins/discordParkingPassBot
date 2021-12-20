@@ -18,16 +18,6 @@ from discord_slash.utils.manage_components import (
 )
 from src.utils.DatabaseHelper import DatabaseHelper
 
-"""
-For a list of inbuilt checks:
-https://discordpy.readthedocs.io/en/rewrite/ext/commands/api.html#checksordpy.readthedocs.io/en/rewrite/ext/commands/api.html#checks
-You could also create your own custom checks. Check out:
-https://github.com/Rapptz/discord.py/blob/master/discord/ext/commands/core.py#L689
-For a list of events:
-https://discordpy.readthedocs.io/en/rewrite/api.html#event-reference
-https://discordpy.readthedocs.io/en/rewrite/ext/commands/api.html#event-reference
-"""
-
 tz = pytz.timezone('America/New_York')
 
 
