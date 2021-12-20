@@ -22,7 +22,7 @@ class DatabaseHelper:
         :param conn: Connection object
         :return:var:True if table exists, else False
         """
-        sql = "SELECT count(name) FROM sqlite_master WHERE type='table' AND name='%s'", (self.table_name,)
+        sql = f"SELECT count(name) FROM sqlite_master WHERE type='table' AND name='{self.table_name}'"
         cur = self.sqliteH.execute_select(conn, sql)
         var = bool(cur.fetchone()[0] == 1)
         self.sqliteH.close_connection(conn, cur)
@@ -62,7 +62,7 @@ class DatabaseHelper:
         :param pass_num: Parking pass number
         :return:var:True if success, else False
         """
-        sql = "DELETE FROM %s WHERE pass_id=?", (self.table_name,)
+        sql = f"DELETE FROM {self.table_name} WHERE pass_id=?"
         task = (pass_num,)
         var = self.sqliteH.execute_sql(conn, sql, task)
         self.sqliteH.close_connection(conn)
@@ -78,7 +78,7 @@ class DatabaseHelper:
         :param out: Boolean: 1 out, 0 in
         :return:var:True if success, else False
         """
-        sql = "UPDATE %s SET name = ?, date = ?, out = ? WHERE pass_id = ?", (self.table_name,)
+        sql = f"UPDATE {self.table_name} SET name = ?, date = ?, out = ? WHERE pass_id = ?"
         task = (name, date, out, pass_num,)
         var = self.sqliteH.execute_sql(conn, sql, task)
         self.sqliteH.close_connection(conn)
@@ -91,7 +91,7 @@ class DatabaseHelper:
         :param pass_num: parking pass id
         :return:List:Parking pass info as List
         """
-        sql = "SELECT * FROM %s WHERE pass_id = ?", (self.table_name,)
+        sql = f"SELECT * FROM {self.table_name} WHERE pass_id = ?"
         task = (pass_num,)
         conn.row_factory = sqlite3.Row
         cur = self.sqliteH.execute_select(conn, sql, task)
@@ -104,7 +104,7 @@ class DatabaseHelper:
         return passes
 
     def check_out_flag(self, conn, pass_num):
-        sql = "SELECT out FROM %s WHERE pass_id = ?", (self.table_name,)
+        sql = f"SELECT out FROM {self.table_name} WHERE pass_id = ?"
         task = (int(pass_num),)
         cur = self.sqliteH.execute_select(conn, sql, task)
         for row in cur:
@@ -116,7 +116,7 @@ class DatabaseHelper:
         :param conn: Connection object
         :return:Dict of passes
         """
-        sql = "SELECT * FROM %s", (self.table_name,)
+        sql = f"SELECT * FROM {self.table_name}"
         conn.row_factory = sqlite3.Row
         cur = self.sqliteH.execute_select(conn, sql)
         rows = cur.fetchall()
