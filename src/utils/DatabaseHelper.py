@@ -2,6 +2,7 @@ import sqlite3
 from src.utils.SqliteHandler import SqliteHandler
 
 
+
 class DatabaseHelper:
 
     """Go between class from cog to SqliteHandler"""
