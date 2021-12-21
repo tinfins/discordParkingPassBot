@@ -366,7 +366,7 @@ class ParkingPassCog(commands.Cog, name='Parking Pass Manager'):
         embed.add_field(name="/check_in", value="   - Select pass from drop-down to return the pass.")
         embed.add_field(name=" These commands are limited:", value="Supervisor role and above")
         embed.add_field(name="/add", value="   - Add passes to the pool. 5 digit pass number must be sent with command")
-        embed.add_field(name="del", value="   - Select pass from drop-down to delete from pool")
+        embed.add_field(name="/del", value="   - Select pass from drop-down to delete from pool")
         embed.add_field(name="/report",
                         value="   - Return list of issued passes. Optional value of 'all' returns status of all passes")
         embed.add_field(name="/get_file", value="   - Return bot history in text file")
